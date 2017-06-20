@@ -1,0 +1,38 @@
+
+
+.backgroundselection {
+    background-color: #DADADA;
+}
+
+body  {
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    min-width: 320px;
+    background: #FFFFFF;
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.4285em;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+html, body {
+    height: 100%;
+}
+
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+.grid {
+    height: 100%;
+}
+
+.width {
+    max-width: 450px;
+}
+
+body {
+    overflow: hidden;
+}
