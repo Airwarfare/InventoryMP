@@ -36,3 +36,7 @@ html {
 body {
     overflow: hidden;
 }
+
+.sidebarwide {
+    width:100% !important
+}

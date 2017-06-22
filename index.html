@@ -8,45 +8,54 @@
         crossorigin="anonymous"></script>
         <script src="semantic.min.js"></script>
         <link rel="stylesheet" type="text/css" href="main.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+        <script src="socket.io.js"></script>
         <script src="loginhandler.js"></script>
         <script src="mainfnc.js"></script>
     </head>
     <body>
         <div class"reply"></div>
-        <div class="ui middle aligned center aligned grid backgroundselection">
-            <div class="column width">
-                <h2 class="ui teal image header">
-                    <img src="logo.png" class="image">
-                    <div class="content">
-                        Log-In to your account
+        <div class="ui sidebar inverted visible vertical menu sidebarwide">
+            <a class="item">
+                <div class="ui middle aligned center aligned grid backgroundselection">
+                    <div class="column width">
+                        <h2 class="ui teal image header">
+                            <img src="logo.png" class="image">
+                            <div class="content">
+                                Log-In to your account
+                            </div>
+                        </h2>
+                        <form id="form" class="ui large form" method="post" action="/">
+                        <div class="ui raised segment">
+                            <div id="emailinput" class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input id="user" type="text" name="email" placeholder="E-mail address">
+                            </div>
+                            </div>
+                            <div id="passinput"class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input id="pass" type="password" name="password" placeholder="Password">
+                            </div>
+                            </div>
+                            <div id="button" class="ui fluid large teal submit button">Login</div>
+                        </div>
+                        </form>
+                        <div id="errormessage" class="ui attached hidden error message">
+                            <i class="close icon"></i>
+                            <div class="header">
+                                There were some errors with your submission
+                            </div>
+                            <ul id="errorlist" class="ui list">
+                            </ul>
+                        </div>
                     </div>
-                </h2>
-                <form id="form" class="ui large form" method="post" action="/">
-                <div class="ui raised segment">
-                    <div id="emailinput" class="field">
-                    <div class="ui left icon input">
-                        <i class="user icon"></i>
-                        <input id="user" type="text" name="email" placeholder="E-mail address">
-                    </div>
-                    </div>
-                    <div id="passinput"class="field">
-                    <div class="ui left icon input">
-                        <i class="lock icon"></i>
-                        <input id="pass" type="password" name="password" placeholder="Password">
-                    </div>
-                    </div>
-                    <div id="button" class="ui fluid large teal submit button">Login</div>
                 </div>
-                </form>
-                <div id="errormessage" class="ui attached hidden error message">
-                    <i class="close icon"></i>
-                    <div class="header">
-                        There were some errors with your submission
-                    </div>
-                    <ul id="errorlist" class="list">
-                    </ul>
-                </div>
+            </a>
+        </div>
+        <div style="height:7%" class="ui fixed inverted menu">
+            <div style="width:80%" class="ui container"> 
+                <a href="#" class="right item"><i id="profilerank"></i><span id="profilename"></span></a>
             </div>
         </div>
     </body>

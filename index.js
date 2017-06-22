@@ -1,13 +1,13 @@
-var http = require('http');
     fs = require('fs');
 var express= require('express');
 var app = express();
 var path = require('path');
 var cors = require('cors');
 var bodyParser = require('body-parser')
-var io = require('socket.io').listen(80);
 var crypto = require('crypto');
 var mysql = require('mysql');
+var http = require('http').createServer(app);
+var io = require('socket.io').listen(80);
 
 
 app.use(express.static(__dirname + '/semantic/dist/'));
@@ -16,6 +16,7 @@ app.use(express.static(__dirname + '/css'));
 app.use(express.static(__dirname + '/localjs'));
 app.use(bodyParser());
 app.use(cors());
+//app.use(require('socket.io'));
 
 app.get('/', function(req, res){
       res.sendFile(path.join(__dirname + '/index.html'));
@@ -23,13 +24,14 @@ app.get('/', function(req, res){
 
 
 io.sockets.on('connection', function (socket) {
+    console.log("Connect");
     socket.emit('for_client', { data: 'random'});
     socket.on('UserLogin', function(data) {
         ValidateUser(data);
     });
 });
 
-app.listen(8080);
+http.listen(3000, '127.0.0.1');
 
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -70,6 +72,8 @@ connection.connect(function(err){
 
 function ValidateUser(UserData)
 {
+    console.log("DB");
+    console.log(UserData.data);
     MySqlGenericQuery("SELECT * FROM userinfo WHERE email = '" + UserData.data[0] + "'", function(err, data){
         if(err) {
             console.log("ERROR:  ",err);
@@ -83,7 +87,8 @@ function ValidateUser(UserData)
             if(UserData.data[0] == data.email && passhash.value == data.passwordhash)
             {
                 console.log("User is validated!");
-                io.emit('LoginSuccess', { data: 'test'});
+                console.log(data);
+                io.emit('LoginSuccess', { data: data});
             }
             else 
             {
