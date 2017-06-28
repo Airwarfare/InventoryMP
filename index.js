@@ -22,6 +22,10 @@ app.get('/', function(req, res){
       res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/debug', function(req, res){
+    res.sendfile(path.join(__dirname + '/card.html'));
+});
+
 
 io.sockets.on('connection', function (socket) {
     console.log("Connect");
@@ -34,7 +38,7 @@ io.sockets.on('connection', function (socket) {
 http.listen(3000, '127.0.0.1');
 
 var connection = mysql.createConnection({
-  host     : 'localhost',
+  host     : '192.168.1.94',
   user     : 'root',
   password : 'test123',
   database : 'nodeproject'
