@@ -38,7 +38,7 @@ io.sockets.on('connection', function (socket) {
 http.listen(3000, '127.0.0.1');
 
 var connection = mysql.createConnection({
-  host     : '192.168.1.94',
+  host     : 'localhost',
   user     : 'root',
   password : 'test123',
   database : 'nodeproject'

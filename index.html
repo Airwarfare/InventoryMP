@@ -11,6 +11,7 @@
         <script src="socket.io.js"></script>
         <script src="loginhandler.js"></script>
         <script src="mainfnc.js"></script>
+        <script src="cardjs.js"></script>
     </head>
     <body>
         <div class"reply"></div>
@@ -54,13 +55,18 @@
             </a>
         </div>
         <div style="height:7%" class="ui fixed inverted menu">
-            <div style="width:90%" class="ui container"> 
-                <a href="#" class="right item"><i id="profilerank"></i><span id="profilename"></span></a>
+            <div style="width:70%" class="ui container"> 
+                <div class="ui search right item">
+                    <div class="ui icon input">
+                        <input class="prompt" type="text" placeholder="Search inventory...">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+                <a href="#" class="item"><i id="profilerank"></i><span id="profilename"></span></a>
                 <a id="signout" href="javascript:TestCall()" class="item">Sign Out</a>
             </div>
         </div>
-        <div style="height:100%" class="ui main text container">
-            
-        </div>
+        <div style="height:100%; max-width:900px !important; margin-top:6em;" class="ui main text container"></div>
     </body>
 </html>

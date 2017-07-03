@@ -15,21 +15,23 @@
     </head>
     <body>
         <div class="ui card">
-            <div class="content">
-                <div class="image">
-                    <img src="logo.png">
-                </div>
+            <div class="image">
+                <img src="logo.png">
             </div>
             <div class="content">
                 <div class="header">Item Name</div>
                 <div class="meta">Item Amount</div>
-                <div class="ui buttons margin">
-                    <button class="ui red basic button icon">
-                        <i class="minus icon"></i>
-                    </button>
-                    <button class="ui basic green button icon">
-                        <i class="plus icon"></i>
-                    </button>
+                <div class="ui input right margin">           
+                    <input type="text" placeholder="Enter Amount..." oninput="InputUIHandle(this)" style="width:160px">
+                    <div class="searchpad"></div>
+                    <div class="ui buttons top">
+                        <button class="ui red basic button icon transition hidden">
+                            <i class="minus icon"></i>
+                        </button>
+                        <button class="ui basic green button icon transition hidden">
+                            <i class="plus icon"></i>
+                        </button>
+                    </div> 
                 </div>
             </div>
             <div class="extra content transition hidden">
@@ -40,9 +42,13 @@
                     <i class="icon edit"></i>
                 </button>
             </div>
-            <div class="ui two bottom attached buttons cancel confirm transition hidden">
+            <div class="ui two bottom attached buttons cancel confirm transition hidden hd">
                 <div class="negative ui button">Cancel</div>
                 <div class="positive ui button">Confirm</div>
+            </div>
+            <div class="ui bottom attached hidden error message">
+                <i class="icon warning"></i>
+                Enter a number!
             </div>
         </div>
     </body>
