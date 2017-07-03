@@ -40,3 +40,16 @@ body {
 .sidebarwide {
     width:100% !important
 }
+
+.hd {
+    visibility: hidden !important;
+    height: 0% !important
+}
+
+.auto {
+    width: 12% !important
+}
+
+.margin {
+    padding-top: 7px;
+}

@@ -1,0 +1,3 @@
+$('.buttonsettings')
+  .transition('vertical flip')
+;

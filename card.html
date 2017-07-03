@@ -11,6 +11,7 @@
         <!--<script src="socket.io.js"></script>
         <script src="loginhandler.js"></script>
         <script src="mainfnc.js"></script>-->
+        <script src="cardjs.js"></script>
     </head>
     <body>
         <div class="ui card">
@@ -22,6 +23,26 @@
             <div class="content">
                 <div class="header">Item Name</div>
                 <div class="meta">Item Amount</div>
+                <div class="ui buttons margin">
+                    <button class="ui red basic button icon">
+                        <i class="minus icon"></i>
+                    </button>
+                    <button class="ui basic green button icon">
+                        <i class="plus icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="extra content transition hidden">
+                <button class="circular ui icon button right floated buttontrash transition hidden">
+                    <i class="icon trash"></i>
+                </button>
+                <button class="circular ui icon button right floated buttonsettings transition hidden">
+                    <i class="icon edit"></i>
+                </button>
+            </div>
+            <div class="ui two bottom attached buttons cancel confirm transition hidden">
+                <div class="negative ui button">Cancel</div>
+                <div class="positive ui button">Confirm</div>
             </div>
         </div>
     </body>
