@@ -14,15 +14,19 @@ function InputUIHandle(input) {
     }
   }
 
-  if(elements[2].children[0].classList.contains("hidden") && input.value != "") {
+  if(elements[2].children[0].classList.contains("hidden") && input.value != "" && card.children[4].classList.contains("hidden")) {
     $(elements[2].children[0]).transition('slide down');
     $(elements[2].children[1]).transition('slide down');
+    $(card.children[3]).transition('slide down');
+    card.children[3].style = "height:40px !important";
     return;
   }
 
   if(!elements[2].children[0].classList.contains("hidden") && input.value == "") {
     $(elements[2].children[0]).transition('slide down');
     $(elements[2].children[1]).transition('slide down');
+    $(card.children[3]).transition('slide down');
+    card.children[3].style = "";
     return;
   }
 }
@@ -91,9 +95,15 @@ function CreateCard() {
 
         var abutton1 = adminbuttons.appendChild(document.createElement("button"));
         abutton1.classList.add("circular", "ui", "icon", "button", "right", "floated", "transition", "hidden", "buttontrash");
+
+          var aicon1 = abutton1.appendChild(document.createElement("i"));
+              aicon1.classList.add("trash", "icon");
         
         var abutton2 = adminbuttons.appendChild(document.createElement("button"));
-        abutton1.classList.add("circular", "ui", "icon", "button", "right", "floated", "transition", "hidden", "buttonsettings");
+        abutton2.classList.add("circular", "ui", "icon", "button", "right", "floated", "transition", "hidden", "buttonsettings");
+
+          var aicon2 = abutton2.appendChild(document.createElement("i"));
+              aicon2.classList.add("edit", "icon");
       
       var twobuttons = card.appendChild(document.createElement("div"));
       twobuttons.classList.add("ui", "two", "bottom", "attached", "buttons", "cancel", "confirm", "transition", "hidden", "hd");
@@ -115,5 +125,22 @@ function CreateCard() {
         var text = warning.appendChild(document.createTextNode("Enter a number!"));
     }
     amount -= 3;
+  }
+}
+
+function isAdmin()
+{
+  var rot = document.getElementById("rot")
+  console.log(rot.children)
+  for (var i = 0; i < rot.children.length; i++) {
+    for (var j = 0; j < rot.children[i].children.length; j++) {
+      var card = rot.children[i].children[j]
+      var main = card.children[2]
+      var button1 = main.children[0]
+      var button2 = main.children[1]
+      $(main).transition('slide down');
+      $(button1).transition('slide down');
+      $(button2).transition('slide down');
+    }
   }
 }
