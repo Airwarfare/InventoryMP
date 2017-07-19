@@ -3,37 +3,39 @@ function InputUIHandle(input) {
   var elements = parent.children;
   var contents = parent.parentElement;
   var card = contents.parentElement;
-  if(isNaN(input.value)) {
-    parent.classList.add("error");
-    card.children[4].classList.remove("hidden");
-  }
-  else {
-    if(parent.classList.contains("error")) {
-      parent.classList.remove("error");
-      card.children[4].classList.add("hidden");
+  if(accesslevel >= 1) {
+    if(isNaN(input.value)) {
+      parent.classList.add("error");
+      card.children[card.children.length-1].classList.remove("hidden");
     }
-  }
+    else {
+      if(parent.classList.contains("error")) {
+        parent.classList.remove("error");
+        card.children[card.children.length-1].classList.add("hidden");
+      }
+    }
 
-  if(elements[2].children[0].classList.contains("hidden") && input.value != "" && card.children[4].classList.contains("hidden")) {
-    $(elements[2].children[0]).transition('slide down');
-    $(elements[2].children[1]).transition('slide down');
-    $(card.children[3]).transition('slide down');
-    card.children[3].style = "height:40px !important";
-    return;
-  }
+    if(elements[2].children[0].classList.contains("hidden") && input.value != "" && card.children[card.children.length - 1].classList.contains("hidden")) {
+      $(elements[2].children[0]).transition('slide down');
+      $(elements[2].children[1]).transition('slide down');
+      $(card.children[card.children.length-2]).transition('slide down');
+      card.children[card.children.length-2].style = "height:40px !important";
+      return;
+    }
 
-  if(!elements[2].children[0].classList.contains("hidden") && input.value == "") {
-    $(elements[2].children[0]).transition('slide down');
-    $(elements[2].children[1]).transition('slide down');
-    $(card.children[3]).transition('slide down');
-    card.children[3].style = "";
-    return;
+    if(!elements[2].children[0].classList.contains("hidden") && input.value == "") {
+      $(elements[2].children[0]).transition('slide down');
+      $(elements[2].children[1]).transition('slide down');
+      $(card.children[card.children.length-2]).transition('slide down');
+      card.children[card.children.length-2].style = "";
+      return;
+    }
   }
 }
 
-function CreateCard() {
+function CreateCard(data) {
   var root = document.body.children[3];
-  var amount = 10;
+  var amount = 3
   while(!(amount <= 0)) {
     var a = 3;
     if(amount <= 2) {
@@ -42,6 +44,9 @@ function CreateCard() {
     var current = root.appendChild(document.createElement("div"));
     current.classList.add("ui", "three", "cards");
     for (var i = 0; i < a; i++) {
+      if(data[i] == null) {
+        return;
+      }
       //Card
       var card = current.appendChild(document.createElement("div"));
       card.classList.add("ui", "card");
@@ -50,19 +55,21 @@ function CreateCard() {
       image.classList.add("image");
 
         var img = image.appendChild(document.createElement("img"));
-        img.src = "logo.png";
+        img.src = data[i].itempictureloc;
+        img.style = "width: 278.66px !important; height: 271.69px !important;"
       //Content
       var content =  card.appendChild(document.createElement("div"));
       content.classList.add("content");
 
         var header = content.appendChild(document.createElement("header"));
         header.classList.add("header");
-        header.textContent = "Item Name";
+        header.textContent = data[i].itemname
 
-        var meta = content.appendChild(document.createElement("meta"));
+        var meta = content.appendChild(document.createElement("div"));
         meta.classList.add("meta");
-        meta.textContent = "Item Amount";
+        meta.textContent = data[i].itemamount
 
+        if(accesslevel >= 1) {
         var inputgroup = content.appendChild(document.createElement("div"));
         inputgroup.classList.add("ui", "input", "right", "margin");
 
@@ -80,16 +87,19 @@ function CreateCard() {
           
             var button1 = buttongroup.appendChild(document.createElement("button"));
             button1.classList.add("ui", "red", "basic", "button", "icon", "transition", "hidden");
+            button1.setAttribute("onClick", "currentObjectAmount(-1, this)")
             
               var icon1 = button1.appendChild(document.createElement("i"));
               icon1.classList.add("minus", "icon");
 
             var button2 = buttongroup.appendChild(document.createElement("button"));
             button2.classList.add("ui", "green", "basic", "button", "icon", "transition", "hidden");
+            button2.setAttribute("onClick", "currentObjectAmount(1, this)")
 
               var icon2 = button2.appendChild(document.createElement("i"));
               icon2.classList.add("plus", "icon");
-        
+          }
+      if(accesslevel == 2) {
       var adminbuttons = card.appendChild(document.createElement("div"));
       adminbuttons.classList.add("extra", "content", "transition", "hidden");
 
@@ -104,7 +114,8 @@ function CreateCard() {
 
           var aicon2 = abutton2.appendChild(document.createElement("i"));
               aicon2.classList.add("edit", "icon");
-      
+      }
+      if(accesslevel >= 1) {
       var twobuttons = card.appendChild(document.createElement("div"));
       twobuttons.classList.add("ui", "two", "bottom", "attached", "buttons", "cancel", "confirm", "transition", "hidden", "hd");
 
@@ -123,6 +134,7 @@ function CreateCard() {
         wicon.classList.add("icon", "warning");
 
         var text = warning.appendChild(document.createTextNode("Enter a number!"));
+      }
     }
     amount -= 3;
   }
@@ -143,4 +155,12 @@ function isAdmin()
       $(button2).transition('slide down');
     }
   }
+}
+
+function currentObjectAmount(addSub, card) {
+  var content = card.parentElement.parentElement.parentElement;
+  var itemAmount = content.children[1].textContent
+  console.log(content.children[2].children[0].value)
+  console.log((parseInt(itemAmount) + (parseInt(content.children[2].children[0].value) * addSub)))
+  content.children[1].innerHTML = (parseInt(itemAmount) + (parseInt(content.children[2].children[0].value) * addSub))
 }

@@ -1,20 +1,21 @@
 var socket = io.connect('http://127.0.0.1:80');
+var accesslevel = 0;
+var carddata = null
 socket.on('LoginSuccess', function (d) {
     document.getElementById('button').classList.remove('loading');
     $('.ui.sidebar')
         .transition('fade')
     ;   
-    CreateCard()
     if(d.data.accesslevel == 0) {
-        document.getElementById('profilerank').classList.add('user');
+        document.getElementById('profilerank').classList.add('user');    
     } else if(d.data.accesslevel == 1) {
         document.getElementById('profilerank').classList.add('users');
     } else if(d.data.accesslevel == 2){
         document.getElementById('profilerank').classList.add('star');
-        isAdmin()
     }
     document.getElementById('profilerank').classList.add('icon');
     document.getElementById('profilename').textContent = d.data.username;
+    accesslevel = d.data.accesslevel;
 });
 socket.on('LoginFail', function (data){
     document.getElementById('button').classList.remove('loading');
@@ -34,14 +35,33 @@ socket.on('LoginFail', function (data){
         document.getElementById("errormessage").classList.remove('hidden');
     }
 });
+socket.on('CardInfo', function(data){
+    var arr = data.data
+    carddata = arr
+    var search = []
+    for(var i = 0; i < data.data.length; i++) {
+        search.push({title:arr[i].itemname})
+    }
+    for(var i = 0; i < data.data.length; i+=3) {
+        var ar = [arr[i], arr[i+1], arr[i+2]]
+        CreateCard(ar)
+        console.log("T"+i)       
+    }
+    if(accesslevel == 2) {
+        isAdmin()
+    }
+    $('.ui.search')
+    .search({
+        source: search
+    })
+    ;
+});
 
 $(document).ready(function() {
     $('.button').click(function() {
-        console.log("Fire");
         var info = [document.getElementById('user').value, document.getElementById('pass').value];
         
         socket.emit('UserLogin', { data: info });
-
         document.getElementById('button').classList.add('loading');
         document.getElementById('emailinput').classList.remove('error');
         document.getElementById('passinput').classList.remove('error');

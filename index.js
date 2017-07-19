@@ -92,6 +92,7 @@ function ValidateUser(UserData)
             {
                 console.log("User is validated!");
                 console.log(data);
+                GetCardInfo()
                 io.emit('LoginSuccess', { data: data});
             }
             else 
@@ -107,6 +108,19 @@ function ValidateUser(UserData)
             }
         }
     });
+
+}
+
+function GetCardInfo() {
+    console.log("Good")
+    connection.query("SELECT * FROM nodeproject.iteminfo", function(err, rows, fields){
+        if(err) {
+            console.log("ERROR: ", err);
+        }
+        else {
+            io.emit('CardInfo', { data: rows})
+        }
+    })
 }
 
 function MySqlGenericQuery(sql, callback) {
